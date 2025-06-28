@@ -1,3 +1,4 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix list: <http://www.w3.org/2000/10/swap/list#>.
 @prefix log: <http://www.w3.org/2000/10/swap/log#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
@@ -331,6 +332,82 @@ owl:Nothing a owl:Class.
     ?X a ?C.
     ?X a ?D.
 } => false.
+
+#dt-type1
+{
+    ?T a rdfs:Datatype
+}
+<=
+{
+    ?T list:in (
+        rdf:PlainLiteral
+        rdf:XMLLiteral
+        rdfs:Literal
+        xsd:decimal
+        xsd:integer
+        xsd:nonNegativeInteger
+        xsd:nonPositiveInteger
+        xsd:positiveInteger
+        xsd:negativeInteger
+        xsd:long
+        xsd:int
+        xsd:short
+        xsd:byte
+        xsd:unsignedLong
+        xsd:unsignedInt
+        xsd:unsignedShort
+        xsd:unsignedByte
+        xsd:float
+        xsd:double
+        xsd:string
+        xsd:normalizedString
+        xsd:token
+        xsd:language
+        xsd:Name
+        xsd:NCName
+        xsd:NMTOKEN
+        xsd:boolean
+        xsd:hexBinary
+        xsd:base64Binary
+        xsd:anyURI
+        xsd:dateTime
+        xsd:dateTimeStamp 
+    )
+} .
+
+#dt-type2
+{
+    ?L a ?T
+}
+<=
+{
+    ([] ?T) log:dtlit ?L .
+} .
+
+#dt-eq
+{
+    ?X owl:sameAs ?Y.
+}
+<=
+{
+    ?X log:rawType log:Literal .
+    ?Y log:rawType log:Literal .
+    ?X log:equalTo ?Y . # should be datatype specific?
+} .
+
+#dt-diff
+{
+    ?X owl:differentFrom ?Y.
+}
+<=
+{
+    ?X log:rawType log:Literal .
+    ?Y log:rawType log:Literal .
+    ?X log:notEqualTo ?Y . # should be datatype specific?
+} .
+
+#dt-not-type (skipped)
+
 
 #scm-cls
 {

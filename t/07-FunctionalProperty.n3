@@ -1,0 +1,15 @@
+@prefix :    <http://example.org/ns#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+:birthPlace a owl:FunctionalProperty .
+
+[] :birthPlace "place1", "place2".
+
+# test
+{
+    "place1" owl:sameAs "place2" . # should produce an inference fuse with rule dt-diff
+}
+=> 
+{ 
+    <> :is true .
+} .
